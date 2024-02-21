@@ -3,3 +3,6 @@ djangorestframework
 adrf
 psycopg2-binary
 httpx
+django-environ
+factory-boy
+Faker

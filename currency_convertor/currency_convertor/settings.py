@@ -9,23 +9,23 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yx5yxa!i$c@h6$5b-t80a!a75otzr5z+0j!vwytb0za%h6x(#m'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'mysecretkey')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,13 @@ WSGI_APPLICATION = 'currency_convertor.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DB', 'currency_db'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
+        # 'HOST': 'localhost',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
@@ -118,8 +125,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EXCHANGE_API_URL = os.environ.get('EXCHANGE_API_URL')
+BASE_CURRENCY = os.environ.get('BASE_CURRENCY',"USD")
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (),
+    "DEFAULT_PERMISSION_CLASSES": (),
+}
+
+DATE_FORMAT = '%d-%m-%y'
+DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
