@@ -6,6 +6,8 @@ services:
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     #    command: python manage.py runserver 0.0.0.0:8000
     container_name: currency_convertor
+    env_file:
+      - .env
     volumes:
       - .:/currency_convertor
     ports:

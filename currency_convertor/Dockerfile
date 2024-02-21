@@ -5,6 +5,8 @@ ENV PYTHONBUFFERED=1
 
 WORKDIR /currency_convertor
 
+RUN mkdir "static"
+
 COPY requirements.txt requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt

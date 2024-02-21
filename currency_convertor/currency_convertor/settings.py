@@ -135,8 +135,8 @@ STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EXCHANGE_API_URL = os.environ.get('EXCHANGE_API_URL')
-BASE_CURRENCY = os.environ.get('BASE_CURRENCY',"USD")
+EXCHANGE_API_URL = os.environ.get("EXCHANGE_API_URL","")
+BASE_CURRENCY = os.environ.get("BASE_CURRENCY","USD")
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (),
     "DEFAULT_PERMISSION_CLASSES": (),
