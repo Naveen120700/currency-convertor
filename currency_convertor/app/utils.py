@@ -8,7 +8,7 @@ def get_exchange_rates():
             response = client.get(f"{settings.EXCHANGE_API_URL}{settings.BASE_CURRENCY}")
             return response.json()
     except Exception as e:
-        return dict
+        return dict()
 
 def get_conversion(source,target,amount):
     return amount * (target.rate / source.rate)

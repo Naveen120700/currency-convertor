@@ -4,16 +4,18 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from datetime import datetime
 from .models import Currency
+import datetime
 
 class APITest(TestCase):
-    def setUp(self):
-        # Create sample data for testing
-        self.currency_usd = Currency.objects.create(code='USD', name='US Dollar', rate=1.0)
-        self.currency_eur = Currency.objects.create(code='EUR', name='Euro', rate=0.85)
+    # def setUp(self):
+    #     # Create sample data for testing
+    #     self.currency_usd = Currency.objects.create(code='USD', name='US Dollar', rate=1.0)
+    #     self.currency_eur = Currency.objects.create(code='EUR', name='Euro', rate=0.85)
 
     def test_update_exchange_rates(self):
-        url = reverse('update-exchange-rates')  # Update with your actual URL name
+        url = reverse('update_exchange_rates')  # Update with your actual URL name
         response = self.client.get(url)
+        # self.assertEqual(response.data,{})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data['status'])

@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(max_length=3, unique=True)),
                 ('name', models.CharField(max_length=100, null=True)),
                 ('rate', models.FloatField(null=True)),
-                ('last_modified', models.DateTimeField(auto_now=True)),
+                ('last_modified', models.DateTimeField(auto_now=True,null=True)),
             ],
         ),
         migrations.RunSQL(
