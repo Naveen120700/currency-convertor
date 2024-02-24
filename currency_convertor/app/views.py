@@ -22,7 +22,8 @@ class UpdateExchangeRates(APIView):
                         currency.rate = rate
                         currency.save()
                     except:
-                        pass
+                        currency = Currency(code=code,rate=rate)
+                        currency.save()
                 return Response({"status":True,"msg": "Exchange rates updated successfully."})
             return Response({"status": False, "msg": "Exchange rates could not get updated, Please try again."})
         except:
